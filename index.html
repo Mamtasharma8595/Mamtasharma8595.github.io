@@ -365,9 +365,21 @@
             // Add repository languages/stack as list items
             repo.language && addStackItem(projectStack, repo.language);
 
+            const openIcon = document.createElement("i");
+            openIcon.classList.add("fab", "fa-github");
+            openIcon.setAttribute("aria-hidden", "true");
+            openIcon.addEventListener("click", () => openRepoDirectory(repo.html_url));
+
+            const openLink = document.createElement("a");
+            openLink.appendChild(openIcon);
+            openLink.classList.add("open-link");
+            openLink.href = repo.html_url;
+            openLink.target = "_blank";
+
             projectCard.appendChild(projectName);
             projectCard.appendChild(projectDescription);
             projectCard.appendChild(projectStack);
+            projectCard.appendChild(openLink);
 
             projectContainer.appendChild(projectCard);
           });
@@ -382,6 +394,11 @@
         listItem.classList.add("project__stack-item");
         listItem.textContent = stackItem;
         stackList.appendChild(listItem);
+      }
+
+      // Function to open the repository directory
+      function openRepoDirectory(url) {
+        window.open(url);
       }
     </script>
     <script
